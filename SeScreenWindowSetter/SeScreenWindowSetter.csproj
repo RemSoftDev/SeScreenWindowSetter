@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FHotkey\HandlerHotkey.cs" />
     <Compile Include="FScreen\ManagerScreen.cs" />
     <Compile Include="FWindow\ManagerWindow.cs" />
     <Compile Include="FWindow\ModWindow.cs" />

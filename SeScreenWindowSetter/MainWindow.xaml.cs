@@ -21,11 +21,9 @@ namespace SeScreenWindowSetter
         {
             InitializeComponent();
 
-            Dictionary<int, ModelHotkey> collection = new Dictionary<int, ModelHotkey>();
-            collection.Add(9000, new ModelHotkey(ModHotkey.MOD_CONTROL | ModHotkey.MOD_SHIFT, Key.Up, Handler9000));
-
+            HandlerHotkey handlerHotkey = new HandlerHotkey();
             mainHotkey = new MainHotkey(this);
-            mainHotkey.KeyCollection = collection;
+            mainHotkey.KeyCollection = handlerHotkey.SetupHandlers();
 
             ManagerScreen.RefreshActualScreens();
             screenInfos = ManagerScreen.ActualScreens;
@@ -42,14 +40,5 @@ namespace SeScreenWindowSetter
             mainHotkey.HookRemove();
             base.OnClosed(e);
         }
-
-        public Func<bool> Handler9000 = () =>
-        {
-            var ss = ManagerWindow.GetActiveWindowProcess();
-
-            return true;
-        };
-
-
     }
 }
