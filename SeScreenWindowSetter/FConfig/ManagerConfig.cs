@@ -3,38 +3,37 @@ using System.IO;
 
 namespace SeScreenWindowSetter.FConfig
 {
-    public class ManagerConfig
+    public static class ManagerConfig
     {
-        private string ConfigPath = @"C:\managerScreen.json";
-        public ManagerConfig()
-        {
+        private static string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
 
-        }
-        public void Start()
+        public static ManagerConfigModel Init()
         {
-            if (!PathExsist(ConfigPath))
+            var res = new ManagerConfigModel();
+
+            if (PathExsist(ConfigPath))
             {
-                return;
+                var json = GetJson(ConfigPath);
+                res = DeserilizeJson(json);
             }
 
-            var json = GetJson(ConfigPath);
-            var obj = DeserilizeJson(json);
+            return res;
         }
 
-        private ManagerConfigModel DeserilizeJson(string json)
+        private static ManagerConfigModel DeserilizeJson(string json)
         {
             ManagerConfigModel res = new ManagerConfigModel();
             res = JsonConvert.DeserializeObject<ManagerConfigModel>(json);
             return res;
         }
 
-        private bool PathExsist(string path)
+        private static bool PathExsist(string path)
         {
             var res = File.Exists(path);
             return res;
         }
 
-        private string GetJson(string path)
+        private static string GetJson(string path)
         {
             var res = string.Empty;
             res = File.ReadAllText(path);

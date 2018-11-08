@@ -1,0 +1,53 @@
+{
+  "Screens": [
+    {
+      "ScreenNumber": 0,
+      "WindowPositions": [
+        {
+          "Types": [
+            {
+              "TypeTitle": "2_Horisontal",
+              "Positions": [
+                {
+                  "PositionTitle": "0.0",
+                  "ProcessNames": [
+                    "Outlook",
+                    "Telegram"
+                  ]
+                },
+                {
+                  "PositionTitle": "0.1",
+                  "ProcessNames": [
+                    "Outlook",
+                    "Teams"
+                  ]
+                }
+              ]
+            },
+            {
+              "TypeTitle": "2_Vertical",
+              "Positions": [
+                {
+                  "PositionTitle": "0.0",
+                  "ProcessNames": [
+                    "Spotify",
+                    "lync",
+                    "devenv"
+                  ]
+                },
+                {
+                  "PositionTitle": "1.0",
+                  "ProcessNames": [
+                    "chrome",
+                    "SkypeApp",
+                    "slack"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

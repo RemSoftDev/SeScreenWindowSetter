@@ -1,55 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace SeScreenWindowSetter.FScreen
 {
-    public class ManagerScreen
+    public class ManagerScreen : Win32Api
     {
         public static List<MonitorInfo> ActualScreens = new List<MonitorInfo>();
 
-        [DllImport("user32")]
-        private static extern bool EnumDisplayMonitors(
-            IntPtr hdc,
-            IntPtr lpRect,
-            MonitorEnumProc callback,
-            int dwData);
+        public static Func<List<MonitorInfo>> Init = () =>
+       {
+           RefreshActualScreens();
+           WorkArea();
 
-        private delegate bool MonitorEnumProc(
-            IntPtr hDesktop,
-            IntPtr hdc,
-            ref Rect pRect,
-            int dwData);
+           return ActualScreens;
+       };
 
-        [StructLayout(LayoutKind.Sequential)]
-        private struct Rect
+        public static void WorkArea()
         {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
+            ActualScreens.ForEach(z => WorkAreaMonitor(z));
         }
-        public class MonitorInfo
-        {
-            public bool IsPrimary = false;
-            public Rectangle Bounds = new Rectangle();
-        }
-        public class Rectangle
-        {
-            public int X;
-            public int Y;
-            public int Width;
-            public int Height;
-        }
+
+        public static Action<MonitorInfo> WorkAreaMonitor = item => GetMonitorInfo(item.hDesktop, item.mONITORINFOEX);
 
         public static void RefreshActualScreens()
         {
             ActualScreens.Clear();
 
-            MonitorEnumProc callback = (IntPtr hDesktop, IntPtr hdc, ref Rect prect, int d) =>
+            MonitorEnumProc callback = (IntPtr hDesktop, IntPtr hdc, ref RECT prect, int d) =>
             {
                 ActualScreens.Add(new MonitorInfo()
                 {
+                    hDesktop = hDesktop,
+
                     Bounds = new Rectangle()
                     {
                         X = prect.left,
@@ -66,5 +48,6 @@ namespace SeScreenWindowSetter.FScreen
 
             EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, callback, 0);
         }
+
     }
 }

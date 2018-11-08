@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
 namespace SeScreenWindowSetter.FHotkey
 {
-    public class MainHotkey
+    public class MainHotkey : Win32Api
     {
         public Dictionary<int, ModelHotkey> KeyCollection { get; set; }
 
@@ -58,7 +57,7 @@ namespace SeScreenWindowSetter.FHotkey
         {
             switch (msg)
             {
-                case ModHotkey.WM_HOTKEY:
+                case (int)ModHotkey.WM_HOTKEY:
                     handled = ExecuteHandler(wParam.ToInt32());
                     break;
             }
@@ -78,17 +77,5 @@ namespace SeScreenWindowSetter.FHotkey
 
             return res;
         }
-
-        [DllImport("User32.dll")]
-        private static extern bool RegisterHotKey(
-            [In] IntPtr hWnd,
-            [In] int id,
-            [In] uint fsModifiers,
-            [In] uint vk);
-
-        [DllImport("User32.dll")]
-        private static extern bool UnregisterHotKey(
-            [In] IntPtr hWnd,
-            [In] int id);
     }
 }

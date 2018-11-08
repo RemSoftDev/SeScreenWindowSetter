@@ -1,11 +1,9 @@
-﻿using SeScreenWindowSetter.FHotkey;
+﻿using SeScreenWindowSetter.FConfig;
+using SeScreenWindowSetter.FHotkey;
 using SeScreenWindowSetter.FScreen;
-using SeScreenWindowSetter.FWindow;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
 
 namespace SeScreenWindowSetter
 {
@@ -15,7 +13,7 @@ namespace SeScreenWindowSetter
     public partial class MainWindow : Window
     {
         private MainHotkey mainHotkey;
-        private List<ManagerScreen.MonitorInfo> screenInfos;
+        private List<MonitorInfo> screenInfos;
 
         public MainWindow()
         {
@@ -25,8 +23,7 @@ namespace SeScreenWindowSetter
             mainHotkey = new MainHotkey(this);
             mainHotkey.KeyCollection = handlerHotkey.SetupHandlers();
 
-            ManagerScreen.RefreshActualScreens();
-            screenInfos = ManagerScreen.ActualScreens;
+            new SplitScreen(ManagerScreen.Init, ManagerConfig.Init());
         }
 
         protected override void OnSourceInitialized(EventArgs e)

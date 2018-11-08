@@ -1,21 +1,31 @@
-﻿using System.Collections.Generic;
-
-namespace SeScreenWindowSetter.FConfig
+﻿namespace SeScreenWindowSetter.FConfig
 {
     public class ManagerConfigModel
     {
-        public List<ManagerConfigScreenModel> Screens { get; set; }
+        public Screen[] Screens { get; set; }
     }
 
-    public class ManagerConfigScreenModel
+    public class Screen
     {
-        public string ScreenNumber { get; set; }
-        public List<ManagerConfigpositionModel> WindowPositions { get; set; }
+        public int ScreenNumber { get; set; }
+        public Windowposition[] WindowPositions { get; set; }
     }
 
-    public class ManagerConfigpositionModel
+    public class Windowposition
     {
-        public string Position { get; set; }
+        public Type[] Types { get; set; }
+    }
+
+    public class Type
+    {
+        public string TypeTitle { get; set; }
+        public Position[] Positions { get; set; }
+    }
+
+    public class Position
+    {
+        public string PositionTitle { get; set; }
         public string[] ProcessNames { get; set; }
     }
+
 }
