@@ -1,24 +1,24 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
-
+//private static string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
 namespace SeScreenWindowSetter.FConfig
 {
     public static class ManagerConfig
     {
-        private static string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
-
-        public static ManagerConfigModel Init()
+        public static Func<string, ManagerConfigModel> Init = 
+            (path) =>
         {
             var res = new ManagerConfigModel();
 
-            if (PathExsist(ConfigPath))
+            if (PathExsist(path))
             {
-                var json = GetJson(ConfigPath);
+                var json = GetJson(path);
                 res = DeserilizeJson(json);
             }
 
             return res;
-        }
+        };
 
         private static ManagerConfigModel DeserilizeJson(string json)
         {

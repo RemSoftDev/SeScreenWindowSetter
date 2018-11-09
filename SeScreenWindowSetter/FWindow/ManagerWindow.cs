@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeScreenWindowSetter.FScreen;
+using System;
 using System.Diagnostics;
 
 namespace SeScreenWindowSetter.FWindow
@@ -7,6 +8,10 @@ namespace SeScreenWindowSetter.FWindow
     {
         //SetWindowPos(handle, 0, 0, 0, 0, 0, ModWindow.SWP_NOZORDER | ModWindow.SWP_NOSIZE | ModWindow.SWP_SHOWWINDOW);
         //Console.WriteLine("Process Name: {0} ", process.ProcessName);
+        public static Action<IntPtr, RectangleWithProcesses> SetWindowsPositionsFromConfig = (h, p) =>
+        {
+            SetWindowPos(h, 0, p.X, p.Y, p.Height, p.Width, ModWindow.SWP_NOZORDER | ModWindow.SWP_NOSIZE | ModWindow.SWP_SHOWWINDOW);
+        };
 
         public static Process GetActiveWindowProcess()
         {

@@ -2,46 +2,59 @@
   "Screens": [
     {
       "ScreenNumber": 0,
-      "WindowPositions": [
+      "Types": [
         {
-          "Types": [
+          "TypeTitle": "2_Horisontal",
+          "Positions": [
             {
-              "TypeTitle": "2_Horisontal",
-              "Positions": [
+              "PositionTitle": "0.0",
+              "Processes": [
                 {
-                  "PositionTitle": "0.0",
-                  "ProcessNames": [
-                    "Outlook",
-                    "Telegram"
-                  ]
+                  "ProcessName": "Outlook"
                 },
                 {
-                  "PositionTitle": "0.1",
-                  "ProcessNames": [
-                    "Outlook",
-                    "Teams"
-                  ]
+                  "ProcessName": "Telegram"
                 }
               ]
             },
             {
-              "TypeTitle": "2_Vertical",
-              "Positions": [
+              "PositionTitle": "0.1",
+              "Processes": [
                 {
-                  "PositionTitle": "0.0",
-                  "ProcessNames": [
-                    "Spotify",
-                    "lync",
-                    "devenv"
-                  ]
+                  "ProcessName": "Teams"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "TypeTitle": "2_Vertical",
+          "Positions": [
+            {
+              "PositionTitle": "0.0",
+              "Processes": [
+                {
+                  "ProcessName": "Spotify"
                 },
                 {
-                  "PositionTitle": "1.0",
-                  "ProcessNames": [
-                    "chrome",
-                    "SkypeApp",
-                    "slack"
-                  ]
+                  "ProcessName": "lync"
+                },
+                {
+                  "ProcessName": "devenv"
+                }
+              ]
+            },
+            {
+              "PositionTitle": "1.0",
+              "Processes": [
+                {
+                  "ProcessName": "chrome"
+                },
+                {
+                  "ProcessName": "SkypeApp"
+                },
+                {
+                  "ProcessName": "slack"
                 }
               ]
             }

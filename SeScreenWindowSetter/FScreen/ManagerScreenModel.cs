@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace SeScreenWindowSetter.FScreen
@@ -10,9 +11,9 @@ namespace SeScreenWindowSetter.FScreen
     public class MonitorInfo
     {
         public bool IsPrimary = false;
+        public int ScreenNumber;
         public IntPtr hDesktop;
-        public Rectangle Bounds = new Rectangle();
-        public MONITORINFOEX mONITORINFOEX = new MONITORINFOEX();
+        public Rectangle Bounds;
     }
     public struct Rectangle
     {
@@ -20,6 +21,14 @@ namespace SeScreenWindowSetter.FScreen
         public int Y;
         public int Width;
         public int Height;
+    }
+    public struct RectangleWithProcesses
+    {
+        public int X;
+        public int Y;
+        public int Width;
+        public int Height;
+        public List<FConfig.Process> Processes;
     }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]

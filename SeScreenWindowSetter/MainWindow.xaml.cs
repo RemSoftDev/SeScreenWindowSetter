@@ -23,7 +23,14 @@ namespace SeScreenWindowSetter
             mainHotkey = new MainHotkey(this);
             mainHotkey.KeyCollection = handlerHotkey.SetupHandlers();
 
-            new SplitScreen(ManagerScreen.Init, ManagerConfig.Init());
+            string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
+
+            var ActualScreens = ManagerScreen.Init();
+            var ManagerConfigModel = ManagerConfig.Init(ConfigPath);
+
+            BridgeConfigAndScreenInfo.
+                Init(SetupState.Init1, ActualScreens, ManagerConfigModel).
+                ForEach(z => new SetWindowsInPositionBlock(z));
         }
 
         protected override void OnSourceInitialized(EventArgs e)
