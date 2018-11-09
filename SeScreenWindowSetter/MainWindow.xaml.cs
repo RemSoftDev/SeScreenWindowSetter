@@ -27,7 +27,7 @@ namespace SeScreenWindowSetter
 
             var ActualScreens = ManagerScreen.Init();
             var ManagerConfigModel = ManagerConfig.Init(ConfigPath);
-
+            // TODO: собрать это в один неразрывный пайп лайн.
             BridgeConfigAndScreenInfo.
                 Init(SetupState.Init1, ActualScreens, ManagerConfigModel).
                 ForEach(z => new SetWindowsInPositionBlock(z));
