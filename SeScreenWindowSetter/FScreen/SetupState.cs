@@ -1,23 +1,26 @@
-﻿using SeScreenWindowSetter.FConfig;
+﻿using FP.SeScreenWindowSetter;
 using System;
+using System.Collections.Generic;
 
 namespace SeScreenWindowSetter.FScreen
 {
     public class SetupState
     {
-        public static Func<PositionBlockState> Init = () =>
-            new PositionBlockState().
-            PipeForward(InitScreenGridConverter).
-            PipeForward(InitLenghtSplitFunctionResolver);
+        public static Func<PositionBlockState>
+            Init =
+            () => new PositionBlockState().
+                    PipeForward(InitScreenGridConverter).
+                    PipeForward(InitLenghtSplitFunctionResolver);
 
-        public static Func<MonitorInfo, FConfig.Type, PositionBlockState> Init1 = (mi, c) =>
-             {
-                 var t = Init();
-                 t.Config = c;
-                 t.MonitorInfo = mi;
+        public static Func<MonitorInfo, FConfig.Type, PositionBlockState>
+            Init1 = (mi, c) =>
+        {
+            var t = Init();
+            t.Config = c;
+            t.MonitorInfo = mi;
 
-                 return t;
-             };
+            return t;
+        };
 
         //public static Func<PositionBlockState, PositionBlockState> InitParts = (s) =>
         //{
@@ -39,6 +42,11 @@ namespace SeScreenWindowSetter.FScreen
         private static Func<PositionBlockState, PositionBlockState>
         InitLenghtSplitFunctionResolver = s =>
         {
+            Dictionary<int, string> zzz = new Dictionary<int, string>();
+            zzz.Add(1, "123");
+            zzz.Add(2, "qwe");
+            zzz.Add(3, "321");
+
             s.LenghtSplitFunctionResolver.Add(1, GetLenghtSplit1);
             s.LenghtSplitFunctionResolver.Add(2, GetLenghtSplit2);
             s.LenghtSplitFunctionResolver.Add(3, GetLenghtSplit3);
@@ -47,7 +55,7 @@ namespace SeScreenWindowSetter.FScreen
         };
 
         public static Func<int, int>
-        GetLenghtSplit1 = (x) => 1;
+        GetLenghtSplit1 = (x) => x;
 
         public static Func<int, int>
         GetLenghtSplit2 = (x) => x / 2;

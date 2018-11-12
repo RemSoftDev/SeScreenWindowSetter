@@ -1,12 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 //private static string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
 namespace SeScreenWindowSetter.FConfig
 {
     public static class ManagerConfig
     {
-        public static Func<string, ManagerConfigModel> Init = 
+        public static Func<string,  ManagerConfigModel> Init = 
             (path) =>
         {
             var res = new ManagerConfigModel();

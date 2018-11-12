@@ -1,8 +1,11 @@
-﻿using SeScreenWindowSetter.FConfig;
+﻿using FP.SeScreenWindowSetter;
+using SeScreenWindowSetter.FConfig;
 using SeScreenWindowSetter.FHotkey;
 using SeScreenWindowSetter.FScreen;
+using SeScreenWindowSetter.FWindow;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace SeScreenWindowSetter
@@ -25,12 +28,11 @@ namespace SeScreenWindowSetter
 
             string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
 
-            var ActualScreens = ManagerScreen.Init();
-            var ManagerConfigModel = ManagerConfig.Init(ConfigPath);
-            // TODO: собрать это в один неразрывный пайп лайн.
-            BridgeConfigAndScreenInfo.
-                Init(SetupState.Init1, ActualScreens, ManagerConfigModel).
-                ForEach(z => new SetWindowsInPositionBlock(z));
+            var t = BridgeConfigAndScreenInfo.
+                     Init(SetupState.Init1, ManagerScreen.Init(), ManagerConfig.Init(ConfigPath)).
+                     Aggregate(new List<RectangleWithProcesses[,]>(), SetWindowsInPositionBlock.Init);
+
+            t.PipeForward(ManagerWindow.SetWindowsPositionsFromConfig);
         }
 
         protected override void OnSourceInitialized(EventArgs e)

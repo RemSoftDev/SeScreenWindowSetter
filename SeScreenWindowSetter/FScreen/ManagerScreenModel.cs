@@ -4,8 +4,20 @@ using System.Runtime.InteropServices;
 
 namespace SeScreenWindowSetter.FScreen
 {
-    internal class ManagerScreenModel
+    public static class CustomExtensions
     {
+        public static Rectangle ToRectang(this RectangleWithProcesses t)
+        {
+            var res = new Rectangle()
+            {
+                Height = t.Height,
+                Width = t.Width,
+                X = t.X,
+                Y = t.Y
+            };
+
+            return res;
+        }
     }
 
     public class MonitorInfo

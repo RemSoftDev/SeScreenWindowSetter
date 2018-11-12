@@ -1,5 +1,4 @@
-﻿using SeScreenWindowSetter.FConfig;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SeScreenWindowSetter.FScreen
@@ -9,6 +8,7 @@ namespace SeScreenWindowSetter.FScreen
         public MonitorInfo MonitorInfo;
         public FConfig.Type Config;
 
+        public (int, int) ScreenGridDimension;
         public Func<int, int> PW;
         public Func<int, int> PH;
 

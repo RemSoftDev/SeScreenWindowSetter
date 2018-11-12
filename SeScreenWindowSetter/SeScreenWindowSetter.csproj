@@ -61,7 +61,8 @@
     </ApplicationDefinition>
     <Compile Include="FHotkey\HandlerHotkey.cs" />
     <Compile Include="FHotkey\Win32Api.cs" />
-    <Compile Include="FpExtensions.cs" />
+    <Compile Include="FP\FpExtensions.cs" />
+    <Compile Include="FP\Maybe.cs" />
     <Compile Include="FScreen\BridgeConfigAndScreenInfo.cs" />
     <Compile Include="FScreen\ManagerScreen.cs" />
     <Compile Include="FScreen\ManagerScreenModel.cs" />

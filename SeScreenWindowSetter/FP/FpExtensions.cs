@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SeScreenWindowSetter
+namespace FP.SeScreenWindowSetter
 {
-    public static class FpExtensions
+    public static class FpCoomonExtensions
     {
         public static TRes
         PipeForward<T1, TRes>(this T1 a1, Func<T1, TRes> f) => f(a1);
+        public static void
+        PipeForward<T1>(this T1 a1, Action<T1> f) => f(a1);
 
         // Curry 2
         public static Func<T1, Func<T2, TRes>>

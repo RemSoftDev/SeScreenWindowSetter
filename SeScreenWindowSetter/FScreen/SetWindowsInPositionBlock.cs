@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FP.SeScreenWindowSetter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,52 +7,61 @@ namespace SeScreenWindowSetter.FScreen
 {
     public class SetWindowsInPositionBlock
     {
-        public SetWindowsInPositionBlock(PositionBlockState s)
+        public static Func<List<RectangleWithProcesses[,]>, PositionBlockState, List<RectangleWithProcesses[,]>>
+            Init = (l, s) =>
         {
-            var typeCheck = ScreenGridChek(s.ScreenGridConverter, s.Config.TypeTitle);
-            typeCheck.
-                PipeForward(ScreenGridSet.Curry()(s)).
-                PipeForward(SetPartsWidthAndHight.Curry()(typeCheck)).
-                PipeForward(FillSplitModel);
-        }
+            var t = s.PipeForward(ScreenGridChek).
+                       PipeForward(ScreenGridSet).
+                       PipeForward(SetPartsWidthAndHight).
+                       PipeForward(FillSplitModel).
+                       ScreenParts;
+            l.Add(t);
+            return l;
+        };
 
         public static Func<PositionBlockState, PositionBlockState>
             FillSplitModel = (s) =>
              {
                  var arr = s.ScreenParts;
-                 var pw = s.PW(s.MonitorInfo.Bounds.Width);
+                 var pw = s.PH(s.MonitorInfo.Bounds.Width);
                  var ph = s.PW(s.MonitorInfo.Bounds.Height);
 
                  for (int i = 0; i < arr.GetLength(0); i++)
                  {
                      for (int j = 0; j < arr.GetLength(1); j++)
                      {
-                         arr[i,j].X = pw * i;
-                         arr[i,j].Y = ph * j;
-                         arr[i,j].Width = pw;
-                         arr[i,j].Height = ph;
-                         arr[i,j].Processes = s.Config.Positions.Where(z => z.PositionTitle == $"{i}.{j}").FirstOrDefault().Processes;
+                         arr[i, j].X = pw * i;
+                         arr[i, j].Y = ph * j;
+                         arr[i, j].Width = ph;
+                         arr[i, j].Height = pw;
+                         arr[i, j].Processes = s.Config.Positions.Where(z => z.PositionTitle == $"{i}.{j}").FirstOrDefault().Processes;
                      }
                  }
 
                  return s;
              };
 
-        public static Func<Dictionary<string, (int, int)>, string, (int, int)>
-            ScreenGridChek = (dict, type) => dict.ContainsKey(type) ? dict[type] : dict.First().Value;
-
-        public static Func<PositionBlockState, (int, int), PositionBlockState>
-            ScreenGridSet = (s, t) =>
+        public static Func<PositionBlockState, PositionBlockState>
+            ScreenGridChek = (s) =>
             {
-                s.ScreenParts = new RectangleWithProcesses[t.Item1, t.Item2];
+                var type = s.Config.TypeTitle;
+                var dict = s.ScreenGridConverter;
+                s.ScreenGridDimension = dict.ContainsKey(type) ? dict[type] : dict.First().Value;
                 return s;
             };
 
-        public static Func<(int, int), PositionBlockState, PositionBlockState>
-            SetPartsWidthAndHight = (t, s) =>
+        public static Func<PositionBlockState, PositionBlockState>
+            ScreenGridSet = (s) =>
             {
-                s.PH = s.LenghtSplitFunctionResolver[t.Item1];
-                s.PW = s.LenghtSplitFunctionResolver[t.Item2];
+                s.ScreenParts = new RectangleWithProcesses[s.ScreenGridDimension.Item1, s.ScreenGridDimension.Item2];
+                return s;
+            };
+
+        public static Func<PositionBlockState, PositionBlockState>
+            SetPartsWidthAndHight = (s) =>
+            {
+                s.PH = s.LenghtSplitFunctionResolver[s.ScreenGridDimension.Item1];
+                s.PW = s.LenghtSplitFunctionResolver[s.ScreenGridDimension.Item2];
 
                 return s;
             };
