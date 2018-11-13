@@ -22,13 +22,6 @@ namespace SeScreenWindowSetter.FScreen
             return t;
         };
 
-        //public static Func<PositionBlockState, PositionBlockState> InitParts = (s) =>
-        //{
-        //    s.PH = 
-
-        //    return t;
-        //};
-
         private static Func<PositionBlockState, PositionBlockState>
         InitScreenGridConverter = s =>
         {

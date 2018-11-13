@@ -10,8 +10,31 @@ namespace SeScreenWindowSetter.FWindow
     public class ManagerWindow : Win32Api
     {
         public static Action<IntPtr, Rectangle>
+            SetWindowsPositionResolver =
+            (h, p) =>
+            {
+
+
+                if (IsIconic(h))
+                {
+                    SetWindowPlac(h);
+                }
+                SetWindowsPosition(h, p);
+            };
+
+        public static Action<IntPtr, Rectangle>
             SetWindowsPosition =
-            (h, p) => SetWindowPos(h, 0, p.X, p.Y, p.Height, p.Width, ModWindow.SWP_SHOWWINDOW);
+            (h, p) => SetWindowPos(h, ModWindow.HWND_TOPMOST, p.X, p.Y, p.Height, p.Width, ModWindow.SWP_NOZORDER | ModWindow.SWP_SHOWWINDOW);
+
+        public static Action<IntPtr>
+            SetWindowPlac =
+            (h) =>
+            {
+                WINDOWPLACEMENT placement;
+                GetWindowPlacement(h, out placement);
+                placement.showCmd = Win32ApiModels.SW_SHOWNORMAL;
+                SetWindowPlacement(h, ref placement);
+            };
 
         public static Action<List<RectangleWithProcesses[,]>>
             SetWindowsPositionsFromConfig = (r) =>
@@ -26,7 +49,9 @@ namespace SeScreenWindowSetter.FWindow
                         {
                             foreach (var p in arr[i, j].Processes)
                             {
-                                SetWindowsPosition(f(p.ProcessName), arr[i, j].ToRectang());
+                                Console.WriteLine(p.ProcessName);
+                                SetWindowsPositionResolver(f(p.ProcessName), arr[i, j].ToRectang());
+
                             }
                         }
                     }
@@ -37,8 +62,9 @@ namespace SeScreenWindowSetter.FWindow
             GetProcessHandleByName =
             (l, n) =>
             {
-                var f = l.Where(z => string.Equals(z.ProcessName,n, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
-                return f.MainWindowHandle;
+                var f = l.Where(z => string.Equals(z.ProcessName, n, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                var res = f?.MainWindowHandle ?? IntPtr.Zero;
+                return res;
             };
 
         public static Func<List<Process>>
@@ -48,7 +74,10 @@ namespace SeScreenWindowSetter.FWindow
         public static Func<List<Process>, Process, List<Process>>
             IsWindowProcess = (a, p) =>
         {
-            if (!string.IsNullOrEmpty(p.MainWindowTitle))
+            WINDOWPLACEMENT placement;
+            GetWindowPlacement(p.MainWindowHandle, out placement);
+
+            if (placement.showCmd > 0)
             {
                 a.Add(p);
             }

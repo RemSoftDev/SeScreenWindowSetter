@@ -86,6 +86,7 @@
     <Compile Include="FHotkey\ModelHotkey.cs" />
     <Compile Include="FHotkey\ModHotkey.cs" />
     <Compile Include="FWindow\Win32Api.cs" />
+    <Compile Include="FWindow\Win32ApiModels.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
