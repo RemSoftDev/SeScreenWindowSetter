@@ -1,4 +1,5 @@
-﻿using FP.SeScreenWindowSetter;
+﻿using App1;
+using FP.SeScreenWindowSetter;
 using SeScreenWindowSetter.FConfig;
 using SeScreenWindowSetter.FHotkey;
 using SeScreenWindowSetter.FScreen;
@@ -21,7 +22,7 @@ namespace SeScreenWindowSetter
         public MainWindow()
         {
             InitializeComponent();
-
+            //EnumDesktopWindowsDemo.qqqqq();
             HandlerHotkey handlerHotkey = new HandlerHotkey();
             mainHotkey = new MainHotkey(this);
             mainHotkey.KeyCollection = handlerHotkey.SetupHandlers();

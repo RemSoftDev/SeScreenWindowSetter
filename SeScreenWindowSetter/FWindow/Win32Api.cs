@@ -5,7 +5,7 @@ namespace SeScreenWindowSetter.FWindow
 {
     public class Win32Api
     {
-        [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+        [DllImport("user32.dll", EntryPoint = "SetWindowPos", SetLastError = true)]
         protected static extern IntPtr SetWindowPos(
             IntPtr hWnd,
             int hWndInsertAfter,
