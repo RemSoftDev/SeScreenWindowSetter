@@ -22,7 +22,7 @@ namespace SeScreenWindowSetter
         public MainWindow()
         {
             InitializeComponent();
-            //EnumDesktopWindowsDemo.qqqqq();
+
             HandlerHotkey handlerHotkey = new HandlerHotkey();
             mainHotkey = new MainHotkey(this);
             mainHotkey.KeyCollection = handlerHotkey.SetupHandlers();

@@ -30,4 +30,10 @@ namespace SeScreenWindowSetter.FWindow
         public Point ptMaxPosition;
         public Rectangle rcNormalPosition;
     }
+
+    public struct WINDOWINFO
+    {
+        public uint ownerpid;
+        public uint childpid;
+    }
 }
