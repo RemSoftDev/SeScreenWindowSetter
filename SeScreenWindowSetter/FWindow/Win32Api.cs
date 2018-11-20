@@ -26,6 +26,10 @@ namespace SeScreenWindowSetter.FWindow
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         protected static extern bool IsIconic(IntPtr hWnd);
         [DllImport("user32.dll")]
         protected static extern bool IsZoomed(IntPtr hWnd);
@@ -58,6 +62,9 @@ namespace SeScreenWindowSetter.FWindow
         [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         protected static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        protected static extern int GetTopWindow(IntPtr hWnd);
+
         [DllImport("user32.dll", SetLastError = true)]
         protected static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
@@ -70,5 +77,8 @@ namespace SeScreenWindowSetter.FWindow
          ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
         protected static extern bool EnumDesktopWindows(IntPtr hDesktop,
         EnumDelegate lpEnumCallbackFunction, IntPtr lParam);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        protected static extern uint GetWindowModuleFileName(IntPtr hWnd, StringBuilder lpszFileName, uint cchFileNameMax);
     }
 }

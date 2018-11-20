@@ -82,7 +82,6 @@
     <Compile Include="FWindow\ModWindow.cs" />
     <Compile Include="FWindow\ProcessManager.cs" />
     <Compile Include="FWindow\ProcessManagerModel.cs" />
-    <Compile Include="Stackoverflow.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

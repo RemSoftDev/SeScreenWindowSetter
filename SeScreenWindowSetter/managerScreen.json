@@ -10,10 +10,10 @@
               "PositionTitle": "0.0",
               "Processes": [
                 {
-                  "ProcessName": "Telegram"
+                  "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.SkypeApp_14.34.81.0_x64__kzf8qxf38zg5c\\SkypeApp.exe"
                 },
                 {
-                  "ProcessName": "Telegram"
+                  "ProcessName": "C:\\Program Files\\Microsoft Office\\root\\Office16\\lync.exe"
                 }
               ]
             },
@@ -21,7 +21,7 @@
               "PositionTitle": "0.1",
               "Processes": [
                 {
-                  "ProcessName": "Teams"
+                  "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsCalculator_10.1809.2731.0_x64__8wekyb3d8bbwe\\Calculator.exe"
                 }
               ]
             }
@@ -52,7 +52,7 @@
                 },
                 {
                   "ProcessName": "
-                    eApp"
+                  eApp"
                 },
                 {
                   "ProcessName": "Pulse"

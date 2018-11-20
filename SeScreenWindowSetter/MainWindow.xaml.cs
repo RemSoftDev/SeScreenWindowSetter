@@ -1,5 +1,4 @@
-﻿using App1;
-using FP.SeScreenWindowSetter;
+﻿using FP.SeScreenWindowSetter;
 using SeScreenWindowSetter.FConfig;
 using SeScreenWindowSetter.FHotkey;
 using SeScreenWindowSetter.FScreen;

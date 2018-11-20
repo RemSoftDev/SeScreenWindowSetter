@@ -1,9 +1,7 @@
-﻿using App1;
-using FP.SeScreenWindowSetter;
+﻿using FP.SeScreenWindowSetter;
 using SeScreenWindowSetter.FScreen;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -11,27 +9,16 @@ namespace SeScreenWindowSetter.FWindow
 {
     public class ManagerWindow : Win32Api
     {
-
-
-        private const int SW_MAXIMIZE = 3;
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
         public static Action<IntPtr, Rectangle>
             SetWindowsPositionResolver =
             (h, p) =>
             {
-
-
                 if (IsIconic(h))
                 {
                     SetWindowPlac(h);
                 }
                 SetWindowsPosition(h, p);
                 var vv = Marshal.GetLastWin32Error();
-                //ShowWindow(h, SW_MAXIMIZE);
-        
             };
 
         public static Action<IntPtr, Rectangle>
@@ -58,83 +45,87 @@ namespace SeScreenWindowSetter.FWindow
                 Console.WriteLine("****************************************************************");
 
                 var f = GetProcessHandleByName.Curry()(GetAllWindosProcess());
-                var hy = EnumDesktopWindowsDemo.qqqqq();
-                var res = new Rectangle()
-                {
-                    Height = 1000,
-                    Width = 1000,
-                    X = 0,
-                    Y = 0
-                };
-                foreach (var item in hy)
-                {
-                    SetWindowsPositionResolver(item, res);
 
+                foreach (var arr in r)
+                {
+                    for (int i = 0; i < arr.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < arr.GetLength(1); j++)
+                        {
+                            foreach (var p in arr[i, j].Processes)
+                            {
+                                foreach (var item in f(p.ProcessName))
+                                {
+                                    SetWindowsPositionResolver(item, arr[i, j].ToRectang());
+                                }
+
+                            }
+                        }
+                    }
                 }
-                //foreach (var arr in r)
-                //{
-                //    for (int i = 0; i < arr.GetLength(0); i++)
-                //    {
-                //        for (int j = 0; j < arr.GetLength(1); j++)
-                //        {
-                //            foreach (var p in arr[i, j].Processes)
-                //            {
-                //                Console.WriteLine(p.ProcessName);
-                //                SetWindowsPositionResolver(f(p.ProcessName), arr[i, j].ToRectang());
-
-                //            }
-                //        }
-                //    }
-                //}
             };
 
-        public static Func<List<Process>, string, IntPtr>
+        public static Func<List<DesktopWindowsCaption>, string, List<IntPtr>>
             GetProcessHandleByName =
             (l, n) =>
             {
-                var f = l.Where(z => string.Equals(z.ProcessName, n, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
-                var res = f?.MainWindowHandle ?? IntPtr.Zero;
+                var res = new List<IntPtr>();
+                var c = l.Where(z => string.Equals(z.Title, n, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+                if (c != null)
+                {
+                    res.AddRange(c.Select(z => z.HWND));
+                }
+
+                foreach (var item in c)
+                {
+                    res.AddRange(GetApplicationFrameHost(l, item));
+                }
+
                 return res;
             };
 
-        public static Func<List<Process>>
-            GetAllProcess =
-            () =>
+        public static Func<List<DesktopWindowsCaption>, DesktopWindowsCaption, List<IntPtr>>
+            GetApplicationFrameHost =
+            (l, i) =>
             {
-                return Process.GetProcesses().ToList();
-                //return EnumDesktopWindowsDemo.GetDesktopWindowsCaptions().ToList();
+                var res = new List<IntPtr>();
+
+                if (i.Title.Contains("WindowsApps"))
+                {
+                    var uwpProcess = l[l.IndexOf(i) + 1];
+                    if (uwpProcess.Title.Contains("ApplicationFrameHost"))
+                    {
+                        res.Add(uwpProcess.HWND);
+                    } 
+                }
+
+                return res;
             };
 
-        public static Func<List<Process>, Process, List<Process>>
+        public static Func<List<DesktopWindowsCaption>, DesktopWindowsCaption, List<DesktopWindowsCaption>>
             IsWindowProcess = (a, p) =>
         {
             WINDOWPLACEMENT placement;
-            GetWindowPlacement(p.MainWindowHandle, out placement);
+            GetWindowPlacement(p.HWND, out placement);
 
             if (placement.showCmd > 0)
             {
                 a.Add(p);
             }
 
-            if (p.ProcessName == "ApplicationFrameHost")
-            {
-                var tt = UwpUtils.GetProcessName(p.MainWindowHandle);
-            }
-
-            Console.WriteLine("*******");
-            Console.WriteLine(p.ProcessName);
-            Console.WriteLine(p.MainWindowTitle);
-            Console.WriteLine(p.MainWindowHandle.ToInt32());
-
             return a;
         };
 
-        public static Func<List<Process>>
+        public static Func<List<DesktopWindowsCaption>>
             GetAllWindosProcess =
-            () => GetAllProcess().Aggregate(new List<Process>(), IsWindowProcess);
+            () =>
+            {
+                return ProcessManager.GetAllProcesses().Aggregate(new List<DesktopWindowsCaption>(), IsWindowProcess);
+            };
 
-        public static Func<Process>
+        public static Func<DesktopWindowsCaption>
             GetActiveWindowProcess =
-            () => GetAllWindosProcess().Where(z => z.MainWindowHandle == GetForegroundWindow()).FirstOrDefault();
+            () => GetAllWindosProcess().Where(z => z.HWND == GetForegroundWindow()).FirstOrDefault();
     }
 }
