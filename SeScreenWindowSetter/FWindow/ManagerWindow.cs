@@ -52,13 +52,17 @@ namespace SeScreenWindowSetter.FWindow
                     {
                         for (int j = 0; j < arr.GetLength(1); j++)
                         {
-                            foreach (var p in arr[i, j].Processes)
-                            {
-                                foreach (var item in f(p.ProcessName))
-                                {
-                                    SetWindowsPositionResolver(item, arr[i, j].ToRectang());
-                                }
 
+                            if (arr[i, j].Processes != null)
+                            {
+                                foreach (var p in arr[i, j].Processes)
+                                {
+                                    foreach (var item in f(p.ProcessName))
+                                    {
+                                        SetWindowsPositionResolver(item, arr[i, j].ToRectang());
+                                    }
+
+                                } 
                             }
                         }
                     }

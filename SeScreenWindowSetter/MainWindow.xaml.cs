@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SeScreenWindowSetter
 {
@@ -28,13 +29,18 @@ namespace SeScreenWindowSetter
 
             string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
 
-            var t = BridgeConfigAndScreenInfo.
-                     Init(SetupState.Init1, ManagerScreen.Init(), ManagerConfig.Init(ConfigPath)).
-                     Aggregate(new List<RectangleWithProcesses[,]>(), SetWindowsInPositionBlock.Init);
+            FillListOfProcess();
 
-            t.PipeForward(ManagerWindow.SetWindowsPositionsFromConfig);
+            BridgeConfigAndScreenInfo.
+                Init(SetupState.Init1, ManagerScreen.Init(), ManagerConfig.Init(ConfigPath)).
+                Aggregate(new List<RectangleWithProcesses[,]>(), SetWindowsInPositionBlock.Init).
+                PipeForward(ManagerWindow.SetWindowsPositionsFromConfig);
         }
 
+        private void FillListOfProcess()
+        {
+            listBox.ItemsSource = ProcessManager.GetAllProcesses().Select(z => z.Title).Distinct().OrderBy(z => z);
+        }
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
@@ -45,6 +51,11 @@ namespace SeScreenWindowSetter
         {
             mainHotkey.HookRemove();
             base.OnClosed(e);
+        }
+
+        private void ItemOnMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Clipboard.SetText((sender as ListBoxItem)?.Content.ToString());
         }
     }
 }

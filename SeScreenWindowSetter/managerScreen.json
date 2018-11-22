@@ -4,43 +4,13 @@
       "ScreenNumber": 0,
       "Types": [
         {
-          "TypeTitle": "2_Horisontal",
-          "Positions": [
-            {
-              "PositionTitle": "0.0",
-              "Processes": [
-                {
-                  "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.SkypeApp_14.34.81.0_x64__kzf8qxf38zg5c\\SkypeApp.exe"
-                },
-                {
-                  "ProcessName": "C:\\Program Files\\Microsoft Office\\root\\Office16\\lync.exe"
-                }
-              ]
-            },
-            {
-              "PositionTitle": "0.1",
-              "Processes": [
-                {
-                  "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsCalculator_10.1809.2731.0_x64__8wekyb3d8bbwe\\Calculator.exe"
-                }
-              ]
-            }
-          ]
-        },
-        {
           "TypeTitle": "2_Vertical",
           "Positions": [
             {
               "PositionTitle": "0.0",
               "Processes": [
                 {
-                  "ProcessName": "Spotify"
-                },
-                {
-                  "ProcessName": "lync"
-                },
-                {
-                  "ProcessName": "devenv"
+                  "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.SkypeApp_14.34.81.0_x64__kzf8qxf38zg5c\\SkypeApp.exe"
                 }
               ]
             },
@@ -48,14 +18,28 @@
               "PositionTitle": "1.0",
               "Processes": [
                 {
-                  "ProcessName": "chrome"
-                },
+                  "ProcessName": "C:\\Users\\oleksandr.dubyna\\AppData\\Local\\slack\\app-3.3.3\\slack.exe"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "TypeTitle": "4",
+          "Positions": [
+            {
+              "PositionTitle": "0.1",
+              "Processes": [
                 {
-                  "ProcessName": "
-                  eApp"
-                },
+                  "ProcessName": "C:\\Program Files\\Microsoft Office\\root\\Office16\\lync.exe"
+                }
+              ]
+            },
+            {
+              "PositionTitle": "1.1",
+              "Processes": [
                 {
-                  "ProcessName": "Pulse"
+                  "ProcessName": "C:\\Windows\\explorer.exe"
                 }
               ]
             }

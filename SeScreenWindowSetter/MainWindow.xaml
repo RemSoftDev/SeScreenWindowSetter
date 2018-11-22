@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+
+        <ListBox Name="listBox" Margin="11" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <EventSetter Event="PreviewMouseLeftButtonUp"
+                                 Handler="ItemOnMouseLeftButtonUp" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
     </Grid>
 </Window>
