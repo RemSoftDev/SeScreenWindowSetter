@@ -1,45 +1,27 @@
 ﻿using Newtonsoft.Json;
+using SeScreenWindowSetter.FP;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-//private static string ConfigPath = @"C:\Users\oleksandr.dubyna\Documents\GIT\SE\SeScreenWindowSetter\SeScreenWindowSetter\managerScreen.json";
+
 namespace SeScreenWindowSetter.FConfig
 {
     public static class ManagerConfig
     {
-        public static Func<string,  ManagerConfigModel> Init = 
+        public static Func<string, Maybe<ManagerConfigModel>> Init =
             (path) =>
-        {
-            var res = new ManagerConfigModel();
+                path.
+                ReturnMaybe().
+                Bind(IsPathExists).
+                Bind(GetJson).
+                Bind(DeserilizeJson);
 
-            if (PathExsist(path))
-            {
-                var json = GetJson(path);
-                res = DeserilizeJson(json);
-            }
+        private static Func<string, Maybe<ManagerConfigModel>> DeserilizeJson = (v) =>
+            JsonConvert.DeserializeObject<ManagerConfigModel>(v).ReturnMaybe();
 
-            return res;
-        };
+        private static Func<string, Maybe<string>> IsPathExists = (v) =>
+            File.Exists(v) ? v.ReturnMaybe() : new Nothing<string>();
 
-        private static ManagerConfigModel DeserilizeJson(string json)
-        {
-            ManagerConfigModel res = new ManagerConfigModel();
-            res = JsonConvert.DeserializeObject<ManagerConfigModel>(json);
-            return res;
-        }
-
-        private static bool PathExsist(string path)
-        {
-            var res = File.Exists(path);
-            return res;
-        }
-
-        private static string GetJson(string path)
-        {
-            var res = string.Empty;
-            res = File.ReadAllText(path);
-            return res;
-        }
+        private static Func<string, Maybe<string>> GetJson = (v) =>
+            File.ReadAllText(v).ReturnMaybe();
     }
 }

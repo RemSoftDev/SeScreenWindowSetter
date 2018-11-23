@@ -2,36 +2,51 @@
 
 namespace SeScreenWindowSetter.FP
 {
-    public class Maybe<T> where T : class
+    public interface Maybe<T>
     {
-        private readonly T value;
-
-        public Maybe(T someValue)
-        {
-            if (someValue == null)
-            {
-                throw new ArgumentNullException(nameof(someValue));
-            }
-
-            this.value = someValue;
-        }
-
-        private Maybe()
-        {
-        }
-
-        public Maybe<TO> Bind<TO>(Func<T, Maybe<TO>> func) where TO : class
-        {
-            return value != null ? func(value) : Maybe<TO>.Nothing();
-        }
-
-        public static Maybe<T> Nothing() => new Maybe<T>();
+        Maybe<TRes> Bind<TRes>(Func<T, Maybe<TRes>> f);
     }
+
+    public class Nothing<T> : Maybe<T>
+    {
+        public override string ToString()
+        {
+            return "Nothing";
+        }
+
+        public Maybe<TRes> Bind<TRes>(Func<T, Maybe<TRes>> func)
+        {
+            return new Nothing<TRes>();
+        }
+    }
+
+    public class Just<T> : Maybe<T>
+    {
+        private T Value { get; set; }
+        public Just(T value)
+        {
+            Value = value;
+        }
+
+        public Maybe<TRes> Bind<TRes>(Func<T, Maybe<TRes>> f)
+        {
+            return Value != null ? f(Value) : new Nothing<TRes>();
+        }
+    }
+
     public static class MaybeExtensions
     {
-        public static Maybe<T> Return<T>(this T value) where T : class
+        public static Maybe<T> ReturnMaybe<T>(this T value)
         {
-            return value != null ? new Maybe<T>(value) : Maybe<T>.Nothing();
+            Maybe<T> res = new Nothing<T>();
+
+            if (value != null)
+            {
+                res = new Just<T>(value);
+            }
+
+            return res;
         }
+
     }
 }
