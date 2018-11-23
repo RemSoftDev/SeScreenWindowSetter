@@ -35,11 +35,6 @@ namespace SeScreenWindowSetter.FScreen
         private static Func<PositionBlockState, PositionBlockState>
         InitLenghtSplitFunctionResolver = s =>
         {
-            Dictionary<int, string> zzz = new Dictionary<int, string>();
-            zzz.Add(1, "123");
-            zzz.Add(2, "qwe");
-            zzz.Add(3, "321");
-
             s.LenghtSplitFunctionResolver.Add(1, GetLenghtSplit1);
             s.LenghtSplitFunctionResolver.Add(2, GetLenghtSplit2);
             s.LenghtSplitFunctionResolver.Add(3, GetLenghtSplit3);

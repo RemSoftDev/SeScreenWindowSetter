@@ -52,7 +52,6 @@ namespace SeScreenWindowSetter.FWindow
                     {
                         for (int j = 0; j < arr.GetLength(1); j++)
                         {
-
                             if (arr[i, j].Processes != null)
                             {
                                 foreach (var p in arr[i, j].Processes)
@@ -61,7 +60,6 @@ namespace SeScreenWindowSetter.FWindow
                                     {
                                         SetWindowsPositionResolver(item, arr[i, j].ToRectang());
                                     }
-
                                 } 
                             }
                         }
