@@ -1,8 +1,7 @@
-﻿using FP.SeScreenWindowSetter;
-using SeScreenWindowSetter.FConfig;
+﻿using SeScreenWindowSetter.FConfig;
 using SeScreenWindowSetter.FHotkey;
-using SeScreenWindowSetter.FP;
 using SeScreenWindowSetter.FScreen;
+using SeScreenWindowSetter.FState;
 using SeScreenWindowSetter.FWindow;
 using System;
 using System.Collections.Generic;
@@ -32,10 +31,16 @@ namespace SeScreenWindowSetter
 
             FillListOfProcess();
 
-            BridgeConfigAndScreenInfo.
-                Init(SetupState.Init1, ManagerScreen.Init(), ManagerConfig.Init(ConfigPath)).
-                Aggregate(new List<RectangleWithProcesses[,]>(), SetWindowsInPositionBlock.Init).
-                PipeForward(ManagerWindow.SetWindowsPositionsFromConfig);
+            ManagerConfig.Init(ConfigPath).
+                Bind(ManagerState.Init);
+            //ManagerConfig.Init(ConfigPath).
+            //    Bind(ManagerScreen.Init);
+
+
+            //BridgeConfigAndScreenInfo.
+            //    Init(SetupState.Init1, ManagerScreen.Init(), ManagerConfig.Init(ConfigPath)).
+            //    Aggregate(new List<RectangleWithProcesses[,]>(), SetWindowsInPositionBlock.Init).
+            //    PipeForward(ManagerWindow.SetWindowsPositionsFromConfig);
         }
 
         private void FillListOfProcess()

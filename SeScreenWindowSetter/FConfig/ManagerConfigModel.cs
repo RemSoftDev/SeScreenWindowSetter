@@ -11,10 +11,11 @@ namespace SeScreenWindowSetter.FConfig
     public class Screen
     {
         public int ScreenNumber { get; set; }
-        public List<Type> Types { get; set; }
+        public IntPtr hDesktop { get; set; }
+        public List<GridType> Types { get; set; }
     }
 
-    public class Type
+    public class GridType
     {
         public string TypeTitle { get; set; }
         public List<Position> Positions { get; set; }

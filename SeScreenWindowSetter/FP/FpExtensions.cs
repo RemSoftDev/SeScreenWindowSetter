@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeScreenWindowSetter.FState;
+using System;
 using System.Collections.Generic;
 
 namespace FP.SeScreenWindowSetter
@@ -36,6 +37,19 @@ namespace FP.SeScreenWindowSetter
             var res = new List<T>(collection);
             res.AddRange(withCollection);
             return res;
+        }
+
+        public static StateModel
+        With(
+            this StateModel state,
+            params Action<StateModel>[] mutators)
+        {
+            foreach (var item in mutators)
+            {
+                item(state);
+            }
+
+            return new StateModel(state);
         }
     }
 }

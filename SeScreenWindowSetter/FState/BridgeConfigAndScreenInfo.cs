@@ -1,13 +1,19 @@
 ﻿using SeScreenWindowSetter.FConfig;
+using SeScreenWindowSetter.FScreen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SeScreenWindowSetter.FScreen
+namespace SeScreenWindowSetter.FState
 {
     public static class BridgeConfigAndScreenInfo
     {
-        public static Func<Func<MonitorInfo, FConfig.Type, PositionBlockState>, List<MonitorInfo>, ManagerConfigModel, List<PositionBlockState>> Init =
+        public static Func<
+            Func<MonitorInfo, FConfig.GridType, PositionBlockState>,
+            List<MonitorInfo>,
+            ManagerConfigModel,
+                List<PositionBlockState>>
+            Init =
             (fs, mi, c) =>
         {
             var res = mi.
@@ -17,7 +23,8 @@ namespace SeScreenWindowSetter.FScreen
             return res;
         };
 
-        private static Func<Func<MonitorInfo, FConfig.Type, PositionBlockState>, MonitorInfo, ManagerConfigModel, List<PositionBlockState>> GetPositionsForScreen =
+        private static Func<Func<MonitorInfo, FConfig.GridType, PositionBlockState>, MonitorInfo, ManagerConfigModel, List<PositionBlockState>>
+            GetPositionsForScreen =
             (fs, mi, c) =>
         {
             var res = new List<PositionBlockState>();

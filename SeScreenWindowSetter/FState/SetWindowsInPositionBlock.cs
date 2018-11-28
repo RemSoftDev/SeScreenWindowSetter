@@ -1,9 +1,10 @@
 ﻿using FP.SeScreenWindowSetter;
+using SeScreenWindowSetter.FScreen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SeScreenWindowSetter.FScreen
+namespace SeScreenWindowSetter.FState
 {
     public class SetWindowsInPositionBlock
     {

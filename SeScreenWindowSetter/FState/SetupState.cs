@@ -1,21 +1,17 @@
 ﻿using FP.SeScreenWindowSetter;
+using SeScreenWindowSetter.FScreen;
 using System;
-using System.Collections.Generic;
 
-namespace SeScreenWindowSetter.FScreen
+namespace SeScreenWindowSetter.FState
 {
     public class SetupState
     {
-        public static Func<PositionBlockState>
-            Init =
-            () => new PositionBlockState().
+        public static Func<MonitorInfo, FConfig.GridType, PositionBlockState>
+            Init = (mi, c) =>
+        {
+            var t = new PositionBlockState().
                     PipeForward(InitScreenGridConverter).
                     PipeForward(InitLenghtSplitFunctionResolver);
-
-        public static Func<MonitorInfo, FConfig.Type, PositionBlockState>
-            Init1 = (mi, c) =>
-        {
-            var t = Init();
             t.Config = c;
             t.MonitorInfo = mi;
 

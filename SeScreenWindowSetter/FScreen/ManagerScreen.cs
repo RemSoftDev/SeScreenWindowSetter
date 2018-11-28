@@ -5,9 +5,10 @@ namespace SeScreenWindowSetter.FScreen
 {
     public class ManagerScreen : Win32Api
     {
-        public static List<MonitorInfo> ActualScreens = new List<MonitorInfo>();
+        private static List<MonitorInfo> ActualScreens = new List<MonitorInfo>();
 
-        public static Func<List<MonitorInfo>> Init = () =>
+        public static Func<List<MonitorInfo>>
+            Init = () =>
         {
             RefreshActualScreens(callback);
             WorkArea();
@@ -20,17 +21,17 @@ namespace SeScreenWindowSetter.FScreen
             for (int i = 0; i < ActualScreens.Count; i++)
             {
                 WorkAreaMonitor(ActualScreens[i]);
-                SetMonitorNumber(ActualScreens[i], i+1);
+                SetMonitorNumber(ActualScreens[i], i + 1);
             }
         }
 
-        private static Action<MonitorInfo> WorkAreaMonitor =
-            item =>
+        private static Action<MonitorInfo>
+            WorkAreaMonitor = v =>
         {
             MONITORINFOEX t = new MONITORINFOEX();
-            GetMonitorInfo(item.hDesktop, t);
+            GetMonitorInfo(v.hDesktop, t);
 
-            item.Bounds = new Rectangle()
+            v.Bounds = new Rectangle()
             {
                 X = t.rcWork.left,
                 Y = t.rcWork.top,
@@ -39,8 +40,8 @@ namespace SeScreenWindowSetter.FScreen
             };
         };
 
-        private static Action<MonitorInfo, int> SetMonitorNumber =
-            (item, n) =>
+        private static Action<MonitorInfo, int>
+            SetMonitorNumber = (item, n) =>
         {
             if (item.IsPrimary)
             {
@@ -52,23 +53,26 @@ namespace SeScreenWindowSetter.FScreen
             }
         };
 
-        private static MonitorEnumProc callback =
+        private static MonitorEnumProc
+            callback =
             (IntPtr hDesktop, IntPtr hdc, ref RECT prect, int d) =>
         {
-            ActualScreens.Add(new MonitorInfo()
-            {
-                hDesktop = hDesktop,
-                IsPrimary = (prect.left == 0) && (prect.top == 0),
-            });
+            ActualScreens.Add(
+                new MonitorInfo()
+                {
+                    hDesktop = hDesktop,
+                    IsPrimary = (prect.left == 0) && (prect.top == 0),
+                }
+            );
 
             return true;
         };
 
-        private static Action<MonitorEnumProc> RefreshActualScreens =
-            (callback) =>
+        private static Action<MonitorEnumProc>
+            RefreshActualScreens = f =>
         {
             ActualScreens.Clear();
-            EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, callback, 0);
+            EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, f, 0);
         };
     }
 }
