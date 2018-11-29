@@ -1,4 +1,5 @@
-﻿using SeScreenWindowSetter.FConfig;
+﻿using FP.SeScreenWindowSetter;
+using SeScreenWindowSetter.FConfig;
 using SeScreenWindowSetter.FHotkey;
 using SeScreenWindowSetter.FScreen;
 using SeScreenWindowSetter.FState;
@@ -32,9 +33,11 @@ namespace SeScreenWindowSetter
             FillListOfProcess();
 
             ManagerConfig.Init(ConfigPath).
-                Bind(ManagerState.Init);
+                Bind(ManagerState.InitFromConfig).
+                Bind(ManagerState.InitFromScreens.Curry()(ManagerScreen.Init())).
+                Bind(ManagerState.InitFromWindowProcesses.Curry()(ProcessManager.GetAllProcesses()));
             //ManagerConfig.Init(ConfigPath).
-            //    Bind(ManagerScreen.Init);
+            //    Bind(ManagerScreen.Init); List<DesktopWindowsCaption>
 
 
             //BridgeConfigAndScreenInfo.

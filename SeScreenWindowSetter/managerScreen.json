@@ -2,7 +2,7 @@
   "Screens": [
     {
       "ScreenNumber": 0,
-      "Types": [
+      "GridTypes": [
         {
           "TypeTitle": "2_Vertical",
           "Positions": [
@@ -49,7 +49,7 @@
     },
     {
       "ScreenNumber": 1,
-      "Types": [
+      "GridTypes": [
         {
           "TypeTitle": "2_Vertical",
           "Positions": [

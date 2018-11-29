@@ -1,6 +1,6 @@
 ﻿using SeScreenWindowSetter.FConfig;
+using SeScreenWindowSetter.FScreen;
 using System;
-using System.Collections.Generic;
 
 namespace SeScreenWindowSetter.FState
 {
@@ -13,31 +13,23 @@ namespace SeScreenWindowSetter.FState
         public StateModel(StateModel s)
         {
             Screen = s.Screen;
-            Types = s.Types;
-            Type = s.Type;
-            Positions = s.Positions;
+            GridType = s.GridType;
             Position = s.Position;
-            Processes = s.Processes;
+            Process = s.Process;
         }
 
-        public IntPtr hDesktop;
+        public IntPtr hProcess;
 
         public int X;
         public int Y;
         public int Width;
         public int Height;
-
-        public IntPtr hProcess;
-
+        
         public Screen Screen;
-
-        public List<GridType> Types;
-        public GridType Type;
-
-        public List<Position> Positions;
+        public GridType GridType;
         public Position Position;
+        public Process Process;
 
-        public List<Process> Processes;
-
+        public MonitorInfo MonitorInfo;
     }
 }

@@ -33,7 +33,7 @@ namespace SeScreenWindowSetter.FState
                     Screens.
                     Where(z => z.ScreenNumber == mi.ScreenNumber)
                     .FirstOrDefault()?.
-                    Types.
+                    GridTypes.
                     Select(x => fs(mi, x));
 
             if (t != null)

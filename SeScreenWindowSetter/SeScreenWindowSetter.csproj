@@ -78,6 +78,7 @@
     <Compile Include="FState\SetupState.cs" />
     <Compile Include="FState\SetWindowsInPositionBlock.cs" />
     <Compile Include="FScreen\Win32Api.cs" />
+    <Compile Include="FState\StateConverter.cs" />
     <Compile Include="FState\StateModel.cs" />
     <Compile Include="FWindow\ManagerWindow.cs" />
     <Compile Include="FWindow\ManagerWindowModels.cs" />
