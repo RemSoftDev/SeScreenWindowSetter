@@ -32,9 +32,10 @@ namespace SeScreenWindowSetter
 
             FillListOfProcess();
 
-            ManagerConfig.Init(ConfigPath).
+            var t = ManagerConfig.Init(ConfigPath).
                 Bind(ManagerState.InitFromConfig).
                 Bind(ManagerState.InitFromScreens.Curry()(ManagerScreen.Init())).
+                Bind(ManagerState.InitFlatStructure).
                 Bind(ManagerState.InitFromWindowProcesses.Curry()(ProcessManager.GetAllProcesses()));
             //ManagerConfig.Init(ConfigPath).
             //    Bind(ManagerScreen.Init); List<DesktopWindowsCaption>

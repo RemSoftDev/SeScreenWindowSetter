@@ -26,23 +26,32 @@ namespace SeScreenWindowSetter.FState
         public static Func<ManagerConfigModel, Maybe<IEnumerable<StateModel>>>
             InitFromConfig = (m) =>
         {
-            var t = m.Screens.Select(ProcessScreens).ReturnMaybe();
-            //SelectMany(ProcessGridTypes).
-            //SelectMany(ProcessPositions).
-            //SelectMany(ProcessProcesses);
+            var r = m.Screens.Select(ProcessScreens).ReturnMaybe();
 
-            return t;
+            return r;
+        };
+
+        public static Func<IEnumerable<StateModel>, Maybe<IEnumerable<StateModel>>>
+          InitFlatStructure = (l) =>
+        {
+            var r = l.
+                    SelectMany(ProcessGridTypes).
+                    SelectMany(ProcessPositions).
+                    SelectMany(ProcessProcesses).
+                    ReturnMaybe();
+
+            return r;
         };
 
         public static Func<List<MonitorInfo>, IEnumerable<StateModel>, Maybe<IEnumerable<StateModel>>>
             InitFromScreens = (m, s) =>
         {
-            var t = m.Where(x => x.IsPrimary == true).First().
+            var r = m.Where(x => x.IsPrimary == true).First().
                     PipeForward(ProcessMonitorInfo.Curry()(m)).
                     PipeForward(s.Select).
                     ReturnMaybe();
 
-            return t;
+            return r;
         };
 
         public static Func<List<MonitorInfo>, MonitorInfo, StateModel, StateModel>
@@ -54,13 +63,27 @@ namespace SeScreenWindowSetter.FState
             return s;
         };
 
-        public static Func<List<DesktopWindowsCaption>, IEnumerable<StateModel>, Maybe<IEnumerable<StateModel>>>
-            InitFromWindowProcesses = (p, s) =>
+        public static Func<List<DesktopWindowsCaption>, StateModel, StateModel>
+            LinkHwndAndProcessFromConfig = (w, s) =>
         {
+            var hwnd = w.Where(z => z.Title == s.Process.ProcessName).FirstOrDefault()?.HWND;
 
+            if (hwnd != null)
+            {
+                s.hProcess = (IntPtr)hwnd;
+            }
 
-            return s.ReturnMaybe();
+            return s;
         };
 
+        public static Func<List<DesktopWindowsCaption>, IEnumerable<StateModel>, Maybe<IEnumerable<StateModel>>>
+            InitFromWindowProcesses = (d, s) =>
+        {
+            var r = LinkHwndAndProcessFromConfig.Curry()(d).
+                    PipeForward(s.Select).
+                    ReturnMaybe();
+
+            return r;
+        };
     }
 }
