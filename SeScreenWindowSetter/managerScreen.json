@@ -7,7 +7,8 @@
           "TypeTitle": "2_Vertical",
           "Positions": [
             {
-              "PositionTitle": "0.0",
+              "Column": 1,
+              "Raw": 1,
               "Processes": [
                 {
                   "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.SkypeApp_14.34.81.0_x64__kzf8qxf38zg5c\\SkypeApp.exe"
@@ -15,7 +16,8 @@
               ]
             },
             {
-              "PositionTitle": "1.0",
+              "Column": 2,
+              "Raw": 1,
               "Processes": [
                 {
                   "ProcessName": "C:\\Users\\oleksandr.dubyna\\AppData\\Local\\slack\\app-3.3.3\\slack.exe"
@@ -28,7 +30,8 @@
           "TypeTitle": "4",
           "Positions": [
             {
-              "PositionTitle": "0.1",
+              "Column": 1,
+              "Raw": 2,
               "Processes": [
                 {
                   "ProcessName": "C:\\Program Files\\Microsoft Office\\root\\Office16\\lync.exe"
@@ -36,54 +39,8 @@
               ]
             },
             {
-              "PositionTitle": "1.1",
-              "Processes": [
-                {
-                  "ProcessName": "C:\\Windows\\explorer.exe"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "ScreenNumber": 1,
-      "GridTypes": [
-        {
-          "TypeTitle": "2_Vertical",
-          "Positions": [
-            {
-              "PositionTitle": "0.0",
-              "Processes": [
-                {
-                  "ProcessName": "C:\\Program Files\\WindowsApps\\Microsoft.SkypeApp_14.34.81.0_x64__kzf8qxf38zg5c\\SkypeApp.exe"
-                }
-              ]
-            },
-            {
-              "PositionTitle": "1.0",
-              "Processes": [
-                {
-                  "ProcessName": "C:\\Users\\oleksandr.dubyna\\AppData\\Local\\slack\\app-3.3.3\\slack.exe"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "TypeTitle": "4",
-          "Positions": [
-            {
-              "PositionTitle": "0.1",
-              "Processes": [
-                {
-                  "ProcessName": "C:\\Program Files\\Microsoft Office\\root\\Office16\\lync.exe"
-                }
-              ]
-            },
-            {
-              "PositionTitle": "1.1",
+              "Column": 2,
+              "Raw": 2,
               "Processes": [
                 {
                   "ProcessName": "C:\\Windows\\explorer.exe"

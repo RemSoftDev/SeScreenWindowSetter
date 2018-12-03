@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Employee.cs" />
     <Compile Include="FHotkey\HandlerHotkey.cs" />
     <Compile Include="FHotkey\Win32Api.cs" />
     <Compile Include="FP\FpExtensions.cs" />

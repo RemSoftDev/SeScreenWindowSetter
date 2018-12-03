@@ -22,7 +22,8 @@ namespace SeScreenWindowSetter.FConfig
 
     public class Position
     {
-        public string PositionTitle { get; set; }
+        public int Column { get; set; }
+        public int Raw { get; set; }
         public List<Process> Processes { get; set; }
     }
 

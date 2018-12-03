@@ -32,11 +32,66 @@ namespace SeScreenWindowSetter
 
             FillListOfProcess();
 
+            List<Employee> li = new List<Employee>();
+            li.Add(new Employee
+            {
+                Id = 1,
+                age = 23,
+                name = "Ritesh",
+                gender = "M"
+            });
+            li.Add(new Employee
+            {
+                Id = 2,
+                age = 23,
+                name = "sujit",
+                gender = "M"
+            });
+            li.Add(new Employee
+            {
+                Id = 3,
+                age = 23,
+                name = "Kabir",
+                gender = "F"
+            });
+            li.Add(new Employee
+            {
+                Id = 4,
+                age = 3,
+                name = "mantu",
+                gender = "F"
+            });
+            li.Add(new Employee
+            {
+                Id = 5,
+                age = 24,
+                name = "Kamlesh",
+                gender = "M"
+            });
+            li.Add(new Employee
+            {
+                Id = 6,
+                age = 28,
+                name = "Manoj",
+                gender = "M"
+            });
+            li.Add(new Employee
+            {
+                Id = 6,
+                age = 28,
+                name = "xxxx",
+                gender = "M"
+            });
+            var res = li.ToLookup(x => x.age);
+            var res1 = li.OrderBy(x => x.age);
             var t = ManagerConfig.Init(ConfigPath).
+                Bind(SetupState.InitNew).
                 Bind(ManagerState.InitFromConfig).
                 Bind(ManagerState.InitFromScreens.Curry()(ManagerScreen.Init())).
                 Bind(ManagerState.InitFlatStructure).
-                Bind(ManagerState.InitFromWindowProcesses.Curry()(ProcessManager.GetAllProcesses()));
+                Bind(ManagerState.InitFromWindowProcesses.Curry()(ProcessManager.GetAllProcesses())).
+                Bind(ManagerState.InitParts).
+                Bind(ManagerState.SetNewCoordinates);
             //ManagerConfig.Init(ConfigPath).
             //    Bind(ManagerScreen.Init); List<DesktopWindowsCaption>
 

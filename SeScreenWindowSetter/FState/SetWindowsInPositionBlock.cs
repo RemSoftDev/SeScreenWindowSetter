@@ -35,7 +35,7 @@ namespace SeScreenWindowSetter.FState
                          arr[i, j].Y = ph * j;
                          arr[i, j].Width = ph;
                          arr[i, j].Height = pw;
-                         arr[i, j].Processes = s.Config.Positions.Where(z => z.PositionTitle == $"{i}.{j}").FirstOrDefault()?.Processes;
+                         //arr[i, j].Processes = s.Config.Positions.Where(z => z.PositionTitle == $"{i}.{j}").FirstOrDefault()?.Processes;
                      }
                  }
 
