@@ -1,5 +1,7 @@
 ﻿using FP.SeScreenWindowSetter;
+using SeScreenWindowSetter.FP;
 using SeScreenWindowSetter.FScreen;
+using SeScreenWindowSetter.FState;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,17 @@ namespace SeScreenWindowSetter.FWindow
                 var vv = Marshal.GetLastWin32Error();
             };
 
+        public static Action<StateModel>
+            SetWindowsPositionResolver1 = (s) =>
+        {
+            if (IsIconic(s.hProcess))
+            {
+                SetWindowPlac(s.hProcess);
+            }
+            SetWindowsPosition(s.hProcess, s.Rectangle);
+            var vv = Marshal.GetLastWin32Error();
+        };
+
         public static Action<IntPtr, Rectangle>
             SetWindowsPosition =
             (h, p) =>
@@ -30,14 +43,21 @@ namespace SeScreenWindowSetter.FWindow
             };
 
         public static Action<IntPtr>
-            SetWindowPlac =
-            (h) =>
+            SetWindowPlac = (h) =>
             {
                 WINDOWPLACEMENT placement;
                 GetWindowPlacement(h, out placement);
                 placement.showCmd = Win32ApiModels.SW_SHOWNORMAL;
                 SetWindowPlacement(h, ref placement);
             };
+
+        public static Func<IEnumerable<StateModel>, Maybe<IEnumerable<StateModel>>>
+            SetWindowsPositions = (l) =>
+        {
+            l.ToList().ForEach(SetWindowsPositionResolver1);
+
+            return l.ReturnMaybe();
+        };
 
         public static Action<List<RectangleWithProcesses[,]>>
             SetWindowsPositionsFromConfig = (r) =>
@@ -60,7 +80,7 @@ namespace SeScreenWindowSetter.FWindow
                                     {
                                         SetWindowsPositionResolver(item, arr[i, j].ToRectang());
                                     }
-                                } 
+                                }
                             }
                         }
                     }
@@ -99,7 +119,7 @@ namespace SeScreenWindowSetter.FWindow
                     if (uwpProcess.Title.Contains("ApplicationFrameHost"))
                     {
                         res.Add(uwpProcess.HWND);
-                    } 
+                    }
                 }
 
                 return res;

@@ -125,22 +125,20 @@ namespace SeScreenWindowSetter.FState
         public static Func<IEnumerable<StateModel>, Maybe<IEnumerable<StateModel>>>
            SetNewCoordinates = (l) =>
         {
-            var f = l.ToList();
             var r = l.Select(CalculateCoordinates);
-            var f1 = r.ToList();
             return r.ReturnMaybe();
         };
 
-        public static Func<StateModel, StateModel>
+        private static Func<StateModel, StateModel>
             CalculateCoordinates = (s) =>
         {
             var pw = s.PH(s.MonitorInfo.Bounds.Width);
             var ph = s.PW(s.MonitorInfo.Bounds.Height);
 
-            s.X = pw * s.Position.Column;
-            s.Y = ph * s.Position.Raw;
-            s.Width = ph;
-            s.Height = pw;
+            s.Rectangle.X = pw * s.Position.Column;
+            s.Rectangle.Y = ph * s.Position.Raw;
+            s.Rectangle.Width = ph;
+            s.Rectangle.Height = pw;
 
             return s;
         };

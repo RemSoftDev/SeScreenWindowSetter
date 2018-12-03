@@ -91,7 +91,8 @@ namespace SeScreenWindowSetter
                 Bind(ManagerState.InitFlatStructure).
                 Bind(ManagerState.InitFromWindowProcesses.Curry()(ProcessManager.GetAllProcesses())).
                 Bind(ManagerState.InitParts).
-                Bind(ManagerState.SetNewCoordinates);
+                Bind(ManagerState.SetNewCoordinates).
+                Bind(ManagerWindow.SetWindowsPositions);
             //ManagerConfig.Init(ConfigPath).
             //    Bind(ManagerScreen.Init); List<DesktopWindowsCaption>
 

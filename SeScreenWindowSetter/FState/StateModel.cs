@@ -24,10 +24,7 @@ namespace SeScreenWindowSetter.FState
 
         public IntPtr hProcess;
 
-        public int X;
-        public int Y;
-        public int Width;
-        public int Height;
+        public Rectangle Rectangle;
 
         public List<Screen> Screens;
         public Screen Screen;
